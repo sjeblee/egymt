@@ -1,0 +1,70 @@
+!!!egy.foma!!!
+!Serena Jeblee & Weston Feely
+!4/21/13
+
+! Read in Lexica by POS tag
+read lexc egy_lex/adj.lexc
+define adj;
+read lexc egy_lex/adv.lexc
+define adv;
+read lexc egy_lex/conj.lexc
+define conj;
+read lexc egy_lex/noun.lexc
+define noun;
+read lexc egy_lex/prep.lexc
+define prep;
+read lexc egy_lex/pron.lexc
+define pron;
+read lexc egy_lex/verb.lexc
+define verb;
+read lexc egy_lex/negverb.lexc
+define negverb;
+
+! Combine lexica into single lexicon
+regex adj | adv | conj | noun | prep | pron | verb | negverb;
+define Lexicon;
+
+! Cleanup: remove morpheme boundaries
+define Cleanup "^" -> 0;
+
+! Define LEV->EGY lexical replacement rules
+define WhereReplace {وين} -> {فين};	!wyn to fyn
+define HowReplace1 {شلون} -> {ازي};	!shlwn to Azy
+define HowReplace2 {كيف} -> {ازي};	!kyf to Azy
+define WhatReplace {ليش} -> {ليه};	!lysh to lyh
+define NowReplace {هلق} -> {دلوقتي};	!hlq to dlwqty
+define HowMuchReplace {قديش} -> {بكام};	!qdysh to bkAm
+define GoodReplace {منيح} -> {كويس};	!mnyH to kwys
+define YesterdayReplace {مبارح} -> {امبارح};	!mbArH to AmbArH
+define MyReplace {معي} -> {معيا};	!ma'i to ma'ayya	
+
+!TODO
+! to be able to: fii
+! Em verb -> verb
+! shw verb -> verb Ayh
+! Aysh verb -> verb Ayh
+! rH verb -> H verb
+! mA verb -> mA-verb-sh
+! rH verb to H-verb
+! AmtY verb -> verb AmtY
+! mA verb -> mA-verb-sh : including fy and End
+! HAda, HAdi -> dA, dy, etc : see pg 17 M.Omar
+! HA + noun -> noun dA/dy
+
+! Compose lexicon with rules and cleanup rule to build grammar
+define Grammar Lexicon		.o. 
+		WhereReplace	.o.
+		HowReplace1	.o.
+		HowReplace2	.o.
+		WhatReplace	.o.
+		NowReplace	.o.
+		HowMuchReplace	.o.
+		GoodReplace	.o.
+		YesterdayReplace	.o.
+		MyReplace	.o.
+               	Cleanup;
+regex Grammar;
+
+! Save into egy.bin and exit
+save stack egy.bin
+exit;

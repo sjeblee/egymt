@@ -1,0 +1,46 @@
+!!!adv.lexc!!!
+
+LEXICON Root
+Adv;
+
+LEXICON AdvInf
+0:0 #;
+
+LEXICON Adv
+دائما AdvInf;
+هنا AdvInf;
+هناك AdvInf;
+دايما AdvInf;
+امبارح AdvInf;
+النهارده AdvInf;
+بكرة AdvInf;
+دلوقت AdvInf;
+زمان AdvInf;
+قريب AdvInf;
+ابدا AdvInf;
+بدري AdvInf;
+وخري AdvInf;
+متاخر AdvInf;
+اخيرا AdvInf;
+عادة AdvInf;
+غالبا AdvInf;
+احيانا AdvInf;
+ساعات AdvInf;
+قوي AdvInf;
+خالص AdvInf;
+جدا AdvInf;
+كتير AdvInf;
+كمان AdvInf;
+تقريبا AdvInf;
+حوالي AdvInf;
+شوية AdvInf;
+كده AdvInf;
+بسرعة AdvInf;
+قوام AdvInf;
+بشويش AdvInf;
+حالا AdvInf;
+حاليا AdvInf;
+سوا AdvInf;
+لوحد AdvInf;
+عمدا AdvInf;
+
