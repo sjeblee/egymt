@@ -1,7 +1,7 @@
 #!/bin/bash
 # Convert Levantine to be more like Egyptian
 # sjeblee@cs.cmu.edu
-# Last Modified: 8 May 2013
+# Last Modified: 17 May 2013
 
 #TODO
 #to be able to: fii
@@ -17,7 +17,7 @@
 # HAda, HAdi -> dA, dy, etc : see pg 17 M.Omar
 # HA + noun -> noun dA/dy
 
-file="data/egylev/egylevtrain.egylev"
+file=$1
 
 sed 's/ معي / معيا /g' $file | \
 sed 's/ وين / فين /g' $file | \
@@ -28,36 +28,5 @@ sed 's/ كيف / إزي /g' $file | \
 sed 's/ قديش / بكام /g' $file | \
 sed 's/ هلق / دلوقتي /g' $file | \
 sed 's/ منيح / كويس /g' $file | \
-#sed 's/رح [a-z] / ح /g' $file | \ 
-sed 's/ مبارح / امبارح /g' $file > data/egylevtrans/egylevtranstrain.egylevtrans
-
-file="data/egylev/egylevdev.egylev"
-
-sed 's/ معي / معيا /g' $file | \
-sed 's/ وين / فين /g' $file | \
-sed 's/ ليش / ليه /g' $file | \
-sed 's/شلون/ إزي/g' $file | \
-sed 's/ كيف / إزي /g' $file | \
-#sed 's/ كيفك / إزيك /g' $file | \
-sed 's/ قديش / بكام /g' $file | \
-sed 's/ هلق / دلوقتي /g' $file | \
-sed 's/ منيح / كويس /g' $file | \
-#sed 's/رح [a-z] / ح /g' $file | \ 
-sed 's/ مبارح / امبارح /g' $file > data/egylevtrans/egylevtransdev.egylevtrans
-
-file="data/egylev/egylevtest.egylev"
-
-sed 's/ معي / معيا /g' $file | \
-sed 's/ وين / فين /g' $file | \
-sed 's/ ليش / ليه /g' $file | \
-sed 's/شلون/ إزي/g' $file | \
-sed 's/ كيف / إزي /g' $file | \
-#sed 's/ كيفك / إزيك /g' $file | \
-sed 's/ قديش / بكام /g' $file | \
-sed 's/ هلق / دلوقتي /g' $file | \
-sed 's/ منيح / كويس /g' $file | \
-#sed 's/رح [a-z] / ح /g' $file | \ 
-sed 's/ مبارح / امبارح /g' $file > data/egylevtrans/egylevtranstest.egylevtrans
-
-
-
+sed 's/ رح / ح/g' $file | \ 
+sed 's/ مبارح / امبارح /g' $file > $file.lte
