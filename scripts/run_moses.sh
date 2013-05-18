@@ -70,7 +70,7 @@ cd ${moses_dir}/working/${lang} # keep this line uncommented for all runs
 
 #Run Moses translation model training
 echo "Training models using training set..."
-nohup nice ${moses_dir}/scripts/training/train-model.perl -root-dir train -corpus ${data_dir}/${lang}/${train} -f ${lang} -e en -alignment grow-diag-final-and -reordering msd-bidirectional-fe -lm 0:3:$HOME/github/mosesdecoder/corpus/${lang}/en.binlm:8 -external-bin-dir ${moses_dir}/tools/ -cores 2 >& ${moses_dir}/working/${lang}/training.out #&
+nohup nice ${moses_dir}/scripts/training/train-model.perl -root-dir train -corpus ${data_dir}/${lang}/${train} -f ${lang} -e en -alignment grow-diag-final-and -reordering msd-bidirectional-fe -lm 0:3:${moses_dir}/corpus/${lang}/en.binlm:8 -external-bin-dir ${moses_dir}/tools -cores 2 >& ${moses_dir}/working/${lang}/training.out #&
 
 ################TUNING################
 echo "Moses Tuning phase"
@@ -86,8 +86,8 @@ ${moses_dir}/bin/processLexicalTable -in train/model/reordering-table.wbe-msd-bi
 
 #Edit moses.ini to point to binarised files
 moses_dir_for_sed=$(echo ${moses_dir} | sed 's/\//\\\//g')
-sed "s/^0 0 0 5 ${moses_dir_for_sed}\/working\/${lang}\/train\/model\/phrase-table.gz$/1 0 0 5 ${moses_dir_for_sed}\/working\/${lang}\/binarised-model\/phrase-table/" ${moses_dir}/working/${lang}/train/model/moses.ini > ${moses_dir}/working/${lang}/train/model/moses.ini.fix
-sed "s/^0-0 wbe-msd-bidirectional-fe-allff 6 ${moses_dir_for_sed}\/working\/${lang}\/train\/model\/reordering-table.wbe-msd-bidirectional-fe.gz$/0-0 wbe-msd-bidirectional-fe-allff 6 ${moses_dir_for_sed}\/working\/${lang}\/binarised-model\/reordering-table/" ${moses_dir}/working/${lang}/train/model/moses.ini.fix > ${moses_dir}/working/${lang}/train/model/moses.ini
+sed -i "s/^0 0 0 5 ${moses_dir_for_sed}\/working\/${lang}\/train\/model\/phrase-table.gz$/1 0 0 5 ${moses_dir_for_sed}\/working\/${lang}\/binarised-model\/phrase-table/" ${moses_dir}/working/${lang}/train/model/moses.ini
+sed -i "s/^0-0 wbe-msd-bidirectional-fe-allff 6 ${moses_dir_for_sed}\/working\/${lang}\/train\/model\/reordering-table.wbe-msd-bidirectional-fe.gz$/0-0 wbe-msd-bidirectional-fe-allff 6 ${moses_dir_for_sed}\/working\/${lang}\/binarised-model\/reordering-table/" ${moses_dir}/working/${lang}/train/model/moses.ini
 
 ################TESTING################
 echo "Moses Testing phase"
