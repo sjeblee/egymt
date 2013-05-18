@@ -2,7 +2,28 @@
 #extract_data.py
 #Weston Feely
 #5/17/13
-import sys, re
+import sys, re, unicodedata
+
+romanChars = {}
+arabicChars = {}
+
+def isRomanChar(char):
+	return romanChars.setdefault(char, 'LATIN' in unicodedata.name(char))
+
+def isArabicChar(char):
+	return arabicChars.setdefault(char, 'ARABIC' in unicodedata.name(char))
+
+def isValidEn(string):
+	string = string.decode('utf-8')
+	return all(isRomanChar(char) for char in string if char.isalpha())
+
+def isValidAr(string):
+	if not u'\u2022' in string.decode('utf-8'):
+		return True
+	else:
+		return False
+	#string = string.decode('utf-8')
+	#return all(isArabicChar(char) for char in string if char.isalpha())
 
 def main(args):
 	if len(args) < 2:
@@ -21,11 +42,17 @@ def main(args):
 		if re.search("<DIALECT>",line):
 			#New entry, append Arabic and English string buffers to lists
 			if dialect == "EGYPTIAN":
-				egycorpus_egy.append(ar_buff)
-				egycorpus_en.append(en_buff)
+				if isValidAr(ar_buff):# and isValidEn(en_buff):
+					egycorpus_egy.append(ar_buff)
+					egycorpus_en.append(en_buff)
+				else:
+					print ar_buff + '\t' + en_buff
 			elif dialect == "LEVANTINE":
-				levcorpus_lev.append(ar_buff)
-				levcorpus_en.append(en_buff)
+				if isValidAr(ar_buff):# and isValidEn(en_buff):
+					levcorpus_lev.append(ar_buff)
+					levcorpus_en.append(en_buff)
+				else:
+					print ar_buff + '\t' + en_buff
 			#Reset Arabic and English string buffers
 			ar_buff = ''
 			en_buff = ''
