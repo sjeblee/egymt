@@ -85,8 +85,9 @@ ${moses_dir}/bin/processPhraseTable -ttable 0 0 train/model/phrase-table.gz -nsc
 ${moses_dir}/bin/processLexicalTable -in train/model/reordering-table.wbe-msd-bidirectional-fe.gz -out binarised-model/reordering-table
 
 #Edit moses.ini to point to binarised files
-sed "s/^0 0 0 5 \/home\/hermes\/github\/mosesdecoder\/working\/${lang}\/train\/model\/phrase-table.gz$/1 0 0 5 \/home\/hermes\/github\/mosesdecoder\/working\/${lang}\/binarised-model\/phrase-table/" ${moses_dir}/working/${lang}/train/model/moses.ini > ${moses_dir}/working/${lang}/train/model/moses.ini.fix
-sed "s/^0-0 wbe-msd-bidirectional-fe-allff 6 \/home\/hermes\/github\/mosesdecoder\/working\/${lang}\/train\/model\/reordering-table.wbe-msd-bidirectional-fe.gz$/0-0 wbe-msd-bidirectional-fe-allff 6 \/home\/hermes\/github\/mosesdecoder\/working\/${lang}\/binarised-model\/reordering-table/" ${moses_dir}/working/${lang}/train/model/moses.ini.fix > ${moses_dir}/working/${lang}/train/model/moses.ini
+moses_dir_for_sed=$(echo ${moses_dir} | sed 's/\//\\\//g')
+sed "s/^0 0 0 5 ${moses_dir_for_sed}\/working\/${lang}\/train\/model\/phrase-table.gz$/1 0 0 5 ${moses_dir_for_sed}\/working\/${lang}\/binarised-model\/phrase-table/" ${moses_dir}/working/${lang}/train/model/moses.ini > ${moses_dir}/working/${lang}/train/model/moses.ini.fix
+sed "s/^0-0 wbe-msd-bidirectional-fe-allff 6 ${moses_dir_for_sed}\/working\/${lang}\/train\/model\/reordering-table.wbe-msd-bidirectional-fe.gz$/0-0 wbe-msd-bidirectional-fe-allff 6 ${moses_dir_for_sed}\/working\/${lang}\/binarised-model\/reordering-table/" ${moses_dir}/working/${lang}/train/model/moses.ini.fix > ${moses_dir}/working/${lang}/train/model/moses.ini
 
 ################TESTING################
 echo "Moses Testing phase"
