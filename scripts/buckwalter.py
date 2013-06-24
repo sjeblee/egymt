@@ -88,7 +88,7 @@ def buckwalter(arabicString):
 		elif char.isspace() or char in punc:
 			outString+=char
 		else:
-			print "Error! Unknown Arabic character:"+char
+			sys.stderr.write("Error! Unknown Arabic character:"+char+'\n')
 			outString+=char
 	return outString
 
@@ -101,7 +101,7 @@ def unbuckwalter(buckString):
 		elif char.isspace() or char in punc:
 			outString+=char
 		else:
-			print "Error! Unknown buckwalter character:"+char
+			sys.stderr.write("Error! Unknown buckwalter character:"+char+'\n')
 			outString+=char
 	return outString
 
