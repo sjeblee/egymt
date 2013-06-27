@@ -1,19 +1,24 @@
 #!/usr/bin/python
 #split_data.py
 #Weston Feely
-#3/30/13
+#6/27/13
 import sys, random
 
-#Splits the Arabic parallel corpus into a randomly selected 80% training set, 10% dev set, 10% test set
+#Splits the Arabic parallel corpus into a randomly selected training set, dev set, and test set using user-defined percentages
 def main(args):
 	#Check args
 	if len(args) < 1:
-		print 'Usage: python split_data.py arabic_corpus english_corpus dialect'
+		print "Usage: python split_data.py arabic_corpus english_corpus dialect train_percentage dev_percentage"
 		return 1
 	#Read in corpora
 	ar_corpus = open(args[1]).readlines()
 	en_corpus = open(args[2]).readlines()
 	dialect = args[3]
+	train_fraction = float(args[4])
+	dev_fraction = float(args[5]
+	if train_fraction+dev_fraction >= 1.0:
+		print "Error: train percentage + dev percentage must be < 1.0"
+		return 1
 	N = len(ar_corpus)
 	#Pair up corpora, shuffle, and unpack
 	parallel = []	
@@ -30,8 +35,8 @@ def main(args):
 	en_dev = []
 	en_test = []
 	#Set up percentages
-	num_train = int(0.8*N)
-	num_dev = int(0.1*N)
+	num_train = int(train_fraction*N)
+	num_dev = int(dev_fraction*N)
 	#Loop through data
 	for i in xrange(0,N):
 		if i <= num_train:
