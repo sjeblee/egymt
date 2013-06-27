@@ -15,8 +15,8 @@ def main(args):
 	en_corpus = open(args[2]).readlines()
 	dialect = args[3]
 	train_fraction = float(args[4])
-	dev_fraction = float(args[5]
-	if train_fraction+dev_fraction >= 1.0:
+	dev_fraction = float(args[5])
+	if (train_fraction+dev_fraction) >= 1.0:
 		print "Error: train percentage + dev percentage must be < 1.0"
 		return 1
 	N = len(ar_corpus)
