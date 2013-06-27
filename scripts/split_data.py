@@ -7,7 +7,7 @@ import sys, random
 #Splits the Arabic parallel corpus into a randomly selected training set, dev set, and test set using user-defined percentages
 def main(args):
 	#Check args
-	if len(args) < 1:
+	if len(args) < 6:
 		print "Usage: python split_data.py arabic_corpus english_corpus dialect train_percentage dev_percentage"
 		return 1
 	#Read in corpora
