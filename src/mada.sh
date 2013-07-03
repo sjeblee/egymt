@@ -2,76 +2,42 @@
 # sjeblee@cs.cmu.edu
 # Run MADA
 
-data="/home/serena/github/EMA/data"
+data="/home/serena/github/EMA/data/7515"
 
 cd ~/MADA-3.2/
 
 echo "running MADA..."
 
-echo "egytrain"
-perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/egy/egytrain.egy outputdir=output &> mada_log_egytrain.txt
+echo "train"
+perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/artrain.ar outputdir=output &> mada_log_artrain.txt
 
-cp output/egytrain.egy.bw.mada.tok $data/egy/
+cp output/artrain.ar.bw.mada.tok $data/
 
-echo "egydev"
-perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/egy/egydev.egy outputdir=output &> mada_log_egydev.txt
+echo "dev"
+perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/ardev.ar outputdir=output &> mada_log_ardev.txt
 
-cp output/egydev.egy.bw.mada.tok $data/egy/
+cp output/ardev.ar.bw.mada.tok $data/
 
-echo "egytest"
-perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/egy/egytest.egy outputdir=output &> mada_log_egytest.txt
+echo "artest"
+perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/artest.ar outputdir=output &> mada_log_artest.txt
 
-cp output/egytest.egy.bw.mada.tok $data/egy/
+cp output/artest.ar.bw.mada.tok $data/
 
-echo "levtrain"
-perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/lev/levtrain.lev outputdir=output &> mada_log_levtrain.txt
+echo "Cleaning up MADA output..."
+cd $data
+mkdir -p mada
 
-cp output/levtrain.lev.bw.mada.tok $data/lev/
-
-echo "levdev"
-perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/lev/levdev.lev outputdir=output/split &> mada_log_levdev.txt
-
-cp output/split/levdev.lev.bw.mada.tok $data/lev/
-
-echo "levtest"
-perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/lev/levtest.lev outputdir=output/split &> mada_log_levtest.txt
-
-cp output/split/levtest.lev.bw.mada.tok $data/lev/
-
-echo "egylevtrain"
-perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/egylev/egylevtrain.egylev outputdir=output/split &> mada_log_egylevtrain.txt
-
-cp output/split/egylevtrain.egylev.bw.mada.tok $data/egylev/
-
-echo "egylevdev"
-perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/egylev/egylevdev.egylev outputdir=output &> mada_log_egylevdev.txt
-
-cp output/egylevdev.egylev.bw.mada.tok $data/egylev/
-
-echo "egylevtest"
-perl MADA+TOKAN.pl config=config-files/template.madaconfig file=$data/egylev/egylevtest.egylev outputdir=output &> mada_log_egylevtest.txt
-
-cp output/egylevtest.egylev.bw.mada.tok $data/egylev/
-
-echo "converting back to Arabic script..."
-
-cd ..
+cd /home/serena/github/EMA/src
 javac ConvertMADA.java
 
-echo "egy"
-java ConvertMADA $data/egy/egytrain.egy.bw.mada.tok $data/egy/egytrain.egy
-java ConvertMADA $data/egy/egydev.egy.bw.mada.tok $data/egy/egydev.egy
-java ConvertMADA $data/egy/egytest.egy.bw.mada.tok $data/egy/egytest.egy
-
-echo "lev"
-java ConvertMADA $data/lev/levtrain.lev.bw.mada.tok $data/lev/levtrain.lev
-java ConvertMADA $data/lev/levdev.lev.bw.mada.tok $data/lev/levdev.lev
-java ConvertMADA $data/lev/levtest.lev.bw.mada.tok $data/lev/levtest.lev
-
-echo "egylev"
-java ConvertMADA $data/egylev/egylevtrain.egylev.bw.mada.tok $data/egylev/egylevtrain.egylev
-java ConvertMADA $data/egylev/egylevdev.egylev.bw.mada.tok $data/egylev/egylevdev.egylev
-java ConvertMADA $data/egylev/egylevtest.egylev.bw.mada.tok $data/egylev/egylevtest.egylev
+java ConvertMADA $data/artrain.ar.bw.mada.tok $data/artrain.ar $data/mada/artrain.ar
+java ConvertMADA $data/ardev.ar.bw.mada.tok $data/ardev.ar $data/mada/ardev.ar
+java ConvertMADA $data/artest.ar.bw.mada.tok $data/artest.ar $data/mada/artest.ar
+cd $data
+rm *.mada.tok
+cp artest.en mada/
+cp ardev.en mada/
+cp artrain.en mada/
 
 echo "done."
 
