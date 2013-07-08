@@ -12,7 +12,8 @@ arpunc = ur'\u2039\u203a\u00ab\u00bb\u2026\u0609\u060a\u060c\u060d\u061b\u061f\u
 punctok = re.compile(ur'([%s' % re.escape('!"#$%&\'()*+,-/:;<=>?@[\\]^_`{|}~') + arpunc + ur'])')
 numtokleft = re.compile(ur'([^\.\u06d4])([' + num + arnum + ']+)')
 numtokright = re.compile(ur'([' + num + arnum + ']+)([^\.\u06d4])')
-dottok = re.compile(ur'(\D)([\.\u06d4])(\D)')
+dottokleft = re.compile(ur'(\D)([\.\u06d4])')
+dottokright = re.compile(ur'([\.\u06d4])(\D)')
 finaldottok = re.compile(ur'([\.\u06d4])$')
 
 #Tokenize Arabic string (insert spaces around numbers and punctuation)
@@ -23,7 +24,8 @@ def tokArabic(arabicString):
 	arabicString = punctok.sub(ur' \1 ', arabicString)
 	arabicString = numtokleft.sub(ur'\1 \2', arabicString)
 	arabicString = numtokright.sub(ur'\1 \2', arabicString)
-	arabicString = dottok.sub(ur'\1 \2 \3', arabicString)
+	arabicString = dottokleft.sub(ur'\1 \2', arabicString)
+	arabicString = dottokright.sub(ur'\1 \2', arabicString)
 	arabicString = finaldottok.sub(ur' \1', arabicString)
 	#Strip whitespace, ZWNJ, and non-break space from arabicString, encode as utf-8
 	arabicString = arabicString.strip(u'\xa0\u200c \t\n\r\f\v').encode('utf-8')
