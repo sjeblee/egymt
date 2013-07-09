@@ -20,14 +20,16 @@ def normArabic(arabicString):
 	arabicString = arabicString.decode('utf-8').strip(u'\xa0\u200c \t\n\r\f\v')
 	#Remove all diacritics
 	arabicString = normaccents.sub(ur'',arabicString)
+	#Normalize Arabic numerals
+	for num in numerals:
+		arabicString = re.sub(num,numerals[num],arabicString,flags=re.U)	
 	#Normalize Arabic letters (robust to diacritic removal)
 	for letter in letters:
 		arabicString = re.sub(letter,letters[letter],arabicString,flags=re.U)
 	#Normalize Arabic alif maksura (alif -> alif maksura at end of word)
 	arabicString = re.sub(ur'\u064a\b',ur'\u0649',arabicString,flags=re.U)
-	#Normalize Arabic numerals
-	for num in numerals:
-		arabicString = re.sub(num,numerals[num],arabicString,flags=re.U)
+	#Normalize ellipsis (sequence of full stops becomes ellipsis)
+	arabicString = re.sub(ur'([\.\u06d4\u2026]+( )?[\.\u06d4\u2026]+)+',ur'\u2026',arabicString)
 	#Re-encode as utf-8
 	arabicString = arabicString.encode('utf-8')
 	return arabicString
