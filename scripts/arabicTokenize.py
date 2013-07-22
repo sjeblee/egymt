@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #arabicTokenize.py
 #Weston Feely
-#7/8/13
+#7/22/13
 import sys, re, fileinput
 
 #Compile digit and punctuation regex
@@ -17,7 +17,7 @@ dottokright = re.compile(ur'([\.\u06d4])(\D)',flags=re.U)
 finaldottok = re.compile(ur'([\.\u06d4])$',flags=re.U)
 
 #Tokenize Arabic string (insert spaces around numbers and punctuation)
-def tokArabic(arabicString):
+def tok_arabic(arabicString):
 	#Strip whitespace, ZWNJ, and non-break space from arabicString, decode from utf-8
 	arabicString = arabicString.decode('utf-8').strip(u'\xa0\u200c \t\n\r\f\v')
 	#Tokenize numbers and punctuation
@@ -37,7 +37,7 @@ def main(args):
 	output = []
 	#Perform tokenization on fileinput (stdin or args)
 	for line in fileinput.input():
-		output.append(tokArabic(line))
+		output.append(tok_arabic(line))
 	#Write output to filename specified by user
 	for line in output:
 		print line
