@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #arabicNorm.py
 #Weston Feely
-#7/8/13
+#7/22/13
 import sys, re, fileinput
 
 #Compile diacritics regex
@@ -26,7 +26,7 @@ def normArabic(arabicString):
 	#Normalize Arabic letters (robust to diacritic removal)
 	for letter in letters:
 		arabicString = re.sub(letter,letters[letter],arabicString,flags=re.U)
-	#Normalize Arabic alif maksura (alif -> alif maksura at end of word)
+	#Normalize Arabic ya (ya -> alif maksura at end of word)
 	arabicString = re.sub(ur'\u064a\b',ur'\u0649',arabicString,flags=re.U)
 	#Normalize ellipsis (sequence of full stops becomes ellipsis)
 	arabicString = re.sub(ur'([\.\u06d4\u2026]+( )?[\.\u06d4\u2026]+)+',ur'\u2026',arabicString)
