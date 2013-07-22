@@ -36,13 +36,14 @@ def norm_arabic(arabicString, far=False, blockEllipsis=False):
 	for letter in letters:
 		arabicString = re.sub(letter,letters[letter],arabicString,flags=re.U)
 	#Normalize Arabic ya (ya -> alif maksura at end of word)
-	arabicString = re.sub(ur'\u064a\b',ur'\u0649',arabicString,flags=re.U)
+	if not far:
+		arabicString = re.sub(ur'\u064a\b',ur'\u0649',arabicString,flags=re.U)
 	#Optional: normalize Farsi ye (ya and alif maksura --> Farsi ye)
-	if far:
+	else:
 		arabicString = re.sub(ur'\u064a',ur'\u06cc',arabicString,flags=re.U)
 		arabicString = re.sub(ur'\u0649',ur'\u06cc',arabicString,flags=re.U)
 		arabicString = re.sub(ur'\ufeef',ur'\u06cc',arabicString,flags=re.U)
-	#Normalize ellipsis (sequence of full stops becomes ellipsis)
+	#Optional: normalize ellipsis (sequence of full stops becomes ellipsis)
 	if not blockEllipsis:
 		arabicString = re.sub(ur'([\.\u06d4\u2026]+( )?[\.\u06d4\u2026]+)+',ur'\u2026',arabicString)
 	#Re-encode as utf-8
