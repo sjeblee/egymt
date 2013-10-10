@@ -1,8 +1,7 @@
 #!/bin/bash
 
-cd $HOME
-
 #Install boost
+cd $HOME
 wget http://downloads.sourceforge.net/project/boost/boost/1.51.0/boost_1_51_0.tar.gz
 tar -xvzf boost_1_51_0.tar.gz
 cd boost_1_51_0
@@ -12,18 +11,17 @@ cd boost_1_51_0
 #Export boost root (put this in your .bashrc)
 export BOOST_ROOT=$HOME/usr/local
 
-#Move to github folder
-mkdir $HOME/github
-cd $HOME/github
+#Make github folder if necessary, move to github folder
+mkdir -p $HOME/github
 
 #Install Moses
+cd $HOME/github
 git clone https://github.com/moses-smt/mosesdecoder.git
 cd mosesdecoder
 ./bjam -j5 --with-boost=$BOOST_ROOT
 
-cd $HOME/github
-
 #Install cdec
+cd $HOME/github
 git clone https://github.com/redpony/cdec
 cd cdec
 autoreconf -ifv
@@ -38,7 +36,7 @@ cd Python-2.7.5.tgz
 
 #Export new python path (put this in your .bashrc)
 export PATH=$HOME/usr/local:$PATH
-#alias python="python2.7"
+alias python="python2.7"
 
 #Install ducttape
 cd $HOME/github
