@@ -1,4 +1,4 @@
 EMA
 ===
 
-Egyptian Morphological Analyzer for Egyptian Arabic to English MT
+NLP Tools for Egyptian Arabic Machine Translation
