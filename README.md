@@ -1,4 +1,4 @@
-EMA
+EgyMT
 ===
 
-NLP Tools for Egyptian Arabic Machine Translation
+Natural Language Processing Tools for Egyptian Arabic Machine Translation
