@@ -11,7 +11,19 @@ cd boost_1_51_0
 #Export boost root (put this in your .bashrc)
 export BOOST_ROOT=$HOME/usr/local
 
-#Make github folder if necessary, move to github folder
+#Install python
+cd $HOME
+wget http://www.python.org/ftp/python/2.7.5/Python-2.7.5.tgz
+tar -xvzf Python-2.7.5.tgz
+cd Python-2.7.5.tgz
+./configure --prefix=$HOME/usr/local && make && make install
+
+#Export new python path (put this in your .bashrc)
+export PATH=$HOME/usr/local:$PATH
+export PYTHON=$HOME/usr/local/bin/python
+alias python="$HOME/usr/local/bin/python"
+
+#Make github folder if necessary
 mkdir -p $HOME/github
 
 #Install Moses
@@ -25,25 +37,20 @@ cd $HOME/github
 git clone https://github.com/redpony/cdec
 cd cdec
 autoreconf -ifv
-./configure --prefix=$HOME/usr/local && make
+./configure --with-boost=$BOOST_ROOT && make
+cd python
+python setup.py install
 
-#Install python
-cd $HOME
-wget http://www.python.org/ftp/python/2.7.5/Python-2.7.5.tgz
-tar -xvzf Python-2.7.5.tgz
-cd Python-2.7.5.tgz
-./configure --prefix=$HOME/usr/local && make && make install
-
-#Export new python path (put this in your .bashrc)
-export PATH=$HOME/usr/local:$PATH
-alias python="python2.7"
+#Make a tools folder if necessary
+mkdir -p $HOME/tools
 
 #Install ducttape
-cd $HOME/github
-git clone https://github.com/jhclark/ducttape.git
+cd $HOME/tools
+wget http://www.cs.cmu.edu/~jhclark/downloads/ducttape-0.3.tgz
+tar -xvzf ducttape-0.3.tgz
 
 #Export ducttape path (put this in your .bashrc)
-export PATH=$HOME/github/ducttape:$PATH
+export PATH=$HOME/tools/ducttape-0.3:$PATH
 
 #Install multeval
 cd $HOME/github
