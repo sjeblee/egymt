@@ -30,6 +30,8 @@ mkdir -p $HOME/github
 cd $HOME/github
 git clone https://github.com/moses-smt/mosesdecoder.git
 cd mosesdecoder
+#Revert Moses version to one that works with our ducttape code
+#git reset --hard 8a1e944bb428a0af9f6c82c26e5633361ce4052c
 ./bjam -j5 --with-boost=$BOOST_ROOT
 
 #Install cdec
