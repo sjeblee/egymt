@@ -57,3 +57,5 @@ export PATH=$HOME/tools/ducttape-0.3:$PATH
 #Install multeval
 cd $HOME/github
 git clone https://github.com/jhclark/multeval
+cd multeval
+ant
