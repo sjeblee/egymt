@@ -1,7 +1,13 @@
 #!/bin/bash
 #align.sh
 #Weston Feely
-#11/30/13
+#12/5/13
+
+#Check for required arg1
+if [ -z "$1" ]; then
+	echo "Usage: ./align.sh parallelCorpus.txt"
+	exit 1
+fi
 
 mkdir -p tmp
 
