@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #splitBitext.py
 #Weston Feely
-#11/30/13
+#12/9/13
 import sys, re, random
 
 def main(args):
@@ -16,9 +16,9 @@ def main(args):
 	assert len(srctext) == len(tgttext)
 	num_segments = len(srctext)
 	#Set fraction of data to use for train, tune, test
-	train_fraction = 0.8
-	tune_fraction = 0.1
-	test_fraction = 0.1
+	train_fraction = 0.98
+	tune_fraction = 0.01
+	test_fraction = 0.01
 	assert (train_fraction + tune_fraction + test_fraction) == 1.0
 	#Loop through data
 	parallel = []
