@@ -6,7 +6,7 @@ import sys, re, random, math
 
 def main(args):
 	#Check args
-	if len(args) < 4:
+	if len(args) < 5:
 		print "Usage: python splitAll.py enus.txt msa.txt areg.txt msaprime.txt"
 		return 1
 	a = args[1].strip().rstrip('.txt')

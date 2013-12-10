@@ -66,6 +66,7 @@ def main(args):
 		f.write(triple[0])
 		g.write(triple[1])
 		h.write(triple[2])
+		i.write(triple[3])
 	f.close()
 	g.close()
 	h.close()

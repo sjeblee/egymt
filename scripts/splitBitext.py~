@@ -44,8 +44,6 @@ def main(args):
 			#Put segment in test set
 			test_set.append(parallel[i])
 	#Write sets to file
-	src_set = src+'-shuffled.txt'
-	tgt_set = tgt+'-shuffled.txt'
 	src_train_fn = 'train-'+src+'.txt'
 	tgt_train_fn = 'train-'+tgt+'.txt'
 	src_tune_fn = 'tune-'+src+'.txt'
@@ -53,8 +51,8 @@ def main(args):
 	src_test_fn = 'test-'+src+'.txt'
 	tgt_test_fn = 'test-'+tgt+'.txt'
 	#Write all data
-	f = open(src_set,'w')
-	g = open(tgt_set,'w')
+	f = open(a_set,'w')
+	g = open(b_set,'w')
 	for pair in parallel:
 		f.write(pair[0])
 		g.write(pair[1])
