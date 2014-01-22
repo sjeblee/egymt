@@ -1,16 +1,16 @@
 #!/usr/bin/python
 #splitBitext.py
 #Weston Feely
-#12/10/13
-import sys, re, random, math
+#1/22/14
+import sys, os, re, random, math
 
 def main(args):
 	#Check args
 	if len(args) < 3:
 		print "Usage: python splitBitext.py src.txt tgt.txt"
 		return 1
-	src = args[1].strip().rstrip('.txt')
-	tgt = args[2].strip().rstrip('.txt')
+	srcpath, src = os.path.split(args[1].rstrip('.txt'))
+	tgtpath, tgt = os.path.split(args[2].rstrip('.txt'))
 	srctext = open(args[1]).readlines()
 	tgttext = open(args[2]).readlines()
 	assert len(srctext) == len(tgttext)
@@ -44,14 +44,14 @@ def main(args):
 			#Put segment in test set
 			test_set.append(parallel[i])
 	#Write sets to file
-	src_set = src+'-shuffled.txt'
-	tgt_set = tgt+'-shuffled.txt'
-	src_train_fn = 'train-'+src+'.txt'
-	tgt_train_fn = 'train-'+tgt+'.txt'
-	src_tune_fn = 'tune-'+src+'.txt'
-	tgt_tune_fn = 'tune-'+tgt+'.txt'
-	src_test_fn = 'test-'+src+'.txt'
-	tgt_test_fn = 'test-'+tgt+'.txt'
+	src_set = os.path.join(srcpath, src+'-shuffled.txt')
+	tgt_set = os.path.join(tgtpath, tgt+'-shuffled.txt')
+	src_train_fn = os.path.join(srcpath, 'train-'+src+'.txt')
+	tgt_train_fn = os.path.join(tgtpath, 'train-'+tgt+'.txt')
+	src_tune_fn = os.path.join(srcpath, 'tune-'+src+'.txt')
+	tgt_tune_fn = os.path.join(tgtpath, 'tune-'+tgt+'.txt')
+	src_test_fn = os.path.join(srcpath, 'test-'+src+'.txt')
+	tgt_test_fn = os.path.join(tgtpath, 'test-'+tgt+'.txt')
 	#Write all data
 	f = open(src_set,'w')
 	g = open(tgt_set,'w')

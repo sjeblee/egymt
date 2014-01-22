@@ -1,17 +1,17 @@
 #!/usr/bin/python
 #splitTriparallel.py
 #Weston Feely
-#12/10/13
-import sys, re, random, math
+#1/22/14
+import sys, os, re, random, math
 
 def main(args):
 	#Check args
 	if len(args) < 4:
-		print "Usage: python splitTriparallel.py enus.txt msa.txt areg.txt"
+		print "Usage: python splitTriparallel.py lang1.txt lang2.txt lang3.txt"
 		return 1
-	a = args[1].strip().rstrip('.txt')
-	b = args[2].strip().rstrip('.txt')
-	c = args[3].strip().rstrip('.txt')
+	apath, a = os.path.split(args[1].rstrip('.txt'))
+	bpath, b = os.path.split(args[2].rstrip('.txt'))
+	cpath, c = os.path.split(args[3].rstrip('.txt'))
 	a_text = open(args[1]).readlines()
 	b_text = open(args[2]).readlines()
 	c_text = open(args[3]).readlines()
@@ -46,18 +46,18 @@ def main(args):
 			#Put segment in test set
 			test_set.append(parallel[i])
 	#Write sets to file
-	a_set = a+'-shuffled.txt'
-	b_set = b+'-shuffled.txt'
-	c_set = c+'-shuffled.txt'
-	a_train_fn = 'train-'+a+'.txt'
-	b_train_fn = 'train-'+b+'.txt'
-	c_train_fn = 'train-'+c+'.txt'
-	a_tune_fn = 'tune-'+a+'.txt'
-	b_tune_fn = 'tune-'+b+'.txt'
-	c_tune_fn = 'tune-'+c+'.txt'
-	a_test_fn = 'test-'+a+'.txt'
-	b_test_fn = 'test-'+b+'.txt'
-	c_test_fn = 'test-'+c+'.txt'
+	a_set = os.path.join(apath, a+'-shuffled.txt')
+	b_set = os.path.join(bpath, b+'-shuffled.txt')
+	c_set = os.path.join(cpath, c+'-shuffled.txt')
+	a_train_fn = os.path.join(apath, 'train-'+a+'.txt')
+	b_train_fn = os.path.join(bpath, 'train-'+b+'.txt')
+	c_train_fn = os.path.join(cpath, 'train-'+c+'.txt')
+	a_tune_fn = os.path.join(apath, 'tune-'+a+'.txt')
+	b_tune_fn = os.path.join(bpath, 'tune-'+b+'.txt')
+	c_tune_fn = os.path.join(cpath, 'tune-'+c+'.txt')
+	a_test_fn = os.path.join(apath, 'test-'+a+'.txt')
+	b_test_fn = os.path.join(bpath, 'test-'+b+'.txt')
+	c_test_fn = os.path.join(cpath, 'test-'+c+'.txt')
 	#Write all data
 	f = open(a_set,'w')
 	g = open(b_set,'w')
