@@ -9,6 +9,7 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
+order="5"
 tmp="./tmp"
 percent="10%"
 data=$1
