@@ -9,12 +9,14 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
-order="5"
+order="5" # for MSA
+#order="3" # for EGY
 tmp="./tmp"
 percent="10%"
 data=$1
 arpafile="./lm.arpa"
-lm_quant_flags="-q 8 -b 8 -a 22"
+lm_quant_flags="-q 8 -b 8 -a 22" # for MSA
+#lm_quant_flags="" # for EGY
 binfile="./lm.bin"
 
 mkdir -p $tmp
