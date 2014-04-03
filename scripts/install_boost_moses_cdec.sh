@@ -5,46 +5,30 @@
 export prefix=$HOME/usr/local
 
 # Install autoconf (needed for cdec)
-cd $HOME
-git clone --depth=1 git://git.sv.gnu.org/autoconf.git
-cd autoconf
-git checkout v2.64
-autoreconf -vi
-./configure --prefix=$prefix
-make install
+#cd $HOME
+#git clone --depth=1 git://git.sv.gnu.org/autoconf.git
+#cd autoconf
+#git checkout v2.64
+#autoreconf -vi
+#./configure --prefix=$prefix
+#make install
 
 # Install automake (needed for cdec)
-cd $HOME
-git clone git://git.sv.gnu.org/automake.git
-cd automake
-git checkout v1.11.2
-./bootstrap
-./configure --prefix=$prefix
-make install
-
-# Install gettext and gperf (needed for GNU coreutils)
 #cd $HOME
-#wget http://ftp.gnu.org/pub/gnu/gettext/gettext-0.18.3.1.tar.gz
-#tar -xzvf gettext-0.18.3.1.tar.gz
-#cd gettext-0.18.3.1
+#git clone git://git.sv.gnu.org/automake.git
+#cd automake
+#git checkout v1.11.2
+#./bootstrap
 #./configure --prefix=$prefix
-#make
-#make install
-#cd $HOME
-#wget http://ftp.gnu.org/pub/gnu/gperf/gperf-3.0.4.tar.gz
-#tar -xvzf gperf-3.0.4.tar.gz
-#cd gperf-3.0.4
-#./configure --prefix=$prefix
-#make
 #make install
 
 # Install boost (needed for moses and cdec)
 cd $HOME
-wget http://downloads.sourceforge.net/project/boost/boost/1.51.0/boost_1_51_0.tar.gz
-tar -xvzf boost_1_51_0.tar.gz
-cd boost_1_51_0
+wget http://downloads.sourceforge.net/project/boost/boost/1.55.0/boost_1_55_0.tar.gz
+tar -xvzf boost_1_55_0.tar.gz
+cd boost_1_55_0
 ./bootstrap.sh
-./b2 --with=all --prefix=$prefix -j 4 install threading=multi
+./b2 --with=all --prefix=$prefix -j4 install threading=multi
 
 # Export boost root (put this in your .bashrc)
 export BOOST_ROOT=$prefix
@@ -100,7 +84,7 @@ cd multeval
 ./get_deps.sh
 ant
 
-# Install pv (needed for Pipelines)
+# Install pv
 cd $HOME
 wget http://pipeviewer.googlecode.com/files/pv-1.1.4.tar.bz2
 tar xjf pv-1.1.4.tar.bz2
@@ -109,7 +93,7 @@ cd pv-1.1.4
 make
 make install
 
-# Install parallel (needed for Pipelines)
+# Install parallel
 wget http://git.savannah.gnu.org/cgit/parallel.git/plain/src/parallel
 chmod 755 parallel
 cp parallel sem
